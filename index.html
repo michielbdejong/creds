@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Get remoteStorage credentials</title>
+  </head>
+  <body>
+    <a href="https://github.com/michielbdejong/creds">gh:michielbdejong/creds</a>
+
+    <h2>remoteStorage</h2><p>
+      <button onclick="connect('remotestorage', document.getElementById('remotestorage-host').value, document.getElementById('remotestorage-user').value, document.getElementById('scopes'));">Connect to your remoteStorage:</button>
+      <input id="remotestorage-user" placeholder="user" value="michiel2" />
+      @
+      <input id="remotestorage-host" placeholder="provider.com" value="5apps.com" />
+      scopes: <input id="scopes" placeholder="module1:r module2:rw etc:rw" value="*:rw" />
+    </p>
+    <div id="result">(result will appear here)</div>
+  </body>
+  <script src="./ludbud.js"></script>
+  <script>
+    function getUserDataCredentials(callback) {
+      var harvest = Ludbud.fromWindowLocation();
+      if (harvest) {
+        document.getElementById('result').innerHTML = JSON.stringify(harvest);
+        window.location = window.location.href;
+      }
+    }
+    function connect(platform, host, user, pass) {
+      Ludbud.oauth(platform, user+'@'+host, scopes);
+    }
+    function reset() {
+    }
+
+    //... on page load:
+    getUserDataCredentials();
+  </script>
+</html>
